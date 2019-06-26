@@ -56988,6 +56988,12 @@ page-otpscreen .item-input {
   margin-bottom: 20px;
 }
 
+ion-app.app-root page-pf-login-credentials input[type=number]::-webkit-inner-spin-button,
+ion-app.app-root page-pf-login-credentials input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 ion-app.app-root page-pf-login-credentials .scroll-content {
   background: #004e95;
   background-image: url("/assets/img/login-bg.jpg");

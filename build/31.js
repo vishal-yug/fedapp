@@ -1,6 +1,6 @@
 webpackJsonp([31],{
 
-/***/ 1896:
+/***/ 1900:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SetpinPageModule", function() { return SetpinPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setpin__ = __webpack_require__(2029);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setpin__ = __webpack_require__(2033);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directives_directives_module__ = __webpack_require__(14);
@@ -47,7 +47,7 @@ var SetpinPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2029:
+/***/ 2033:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59,7 +59,7 @@ var SetpinPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_events__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_sites__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils_dom__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_helper__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_helper__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__configconstants__ = __webpack_require__(75);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_forms__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_utils_text__ = __webpack_require__(11);
@@ -108,8 +108,8 @@ var SetpinPage = /** @class */ (function () {
         this.eventThrown = false;
         this.viewLeft = false;
         this.credForm = fb.group({
-            setpin: ['', [__WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].minLength(6), __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].maxLength(6)]],
-            confirmpin: ['', [__WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].minLength(6), __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].maxLength(6)]]
+            setpin: ['', [__WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].minLength(6), __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].maxLength(6), __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].pattern('[0-9]{6}')]],
+            confirmpin: ['', [__WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].minLength(6), __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].maxLength(6), __WEBPACK_IMPORTED_MODULE_9__angular_forms__["h" /* Validators */].pattern('[0-9]{6}')]]
         });
         this.sitesProvider.getSortedSites().then(function (sites) {
             // Remove protocol from the url to show more url text.
@@ -228,10 +228,12 @@ var SetpinPage = /** @class */ (function () {
             };
             return site.write('set_user_pin', params).then(function (data) {
                 if (data.status) {
-                    _this.navCtrl.push('CoreMainMenuPage');
+                    _this.domUtils.showAlert('Success', _this.translate.instant('core.login.custom.pinupdatesuccessmessage'));
+                    //this.navCtrl.push('CoreMainMenuPage');
+                    _this.customLogOutWithDelete();
                 }
                 else {
-                    _this.domUtils.showErrorModal("There is an issue while setting up the PIN please try again after some time", true);
+                    _this.domUtils.showErrorModal('There is an issue while setting up the PIN please try again after some time', true);
                 }
             }).catch(function () {
                 // Unable to get mime type, assume it's not supported.
@@ -258,7 +260,7 @@ var SetpinPage = /** @class */ (function () {
     };
     SetpinPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-setpin',template:/*ion-inline-start:"D:\FedCampusApp\src\core\login\pages\setpin\setpin.html"*/'<ion-header>\n\n  <ion-navbar core-back-button>\n\n    <ion-title>{{\'core.login.custom.setpin.navtitle\' | translate}}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="core-center-view">\n\n  <core-loading [hideUntil]="pageLoaded">      \n\n    <div class="box">\n\n        <h3 class="text-center"> {{\'core.login.custom.setpin.info\' | translate}} </h3>\n\n      <form ion-list [formGroup]="credForm" (ngSubmit)="SetPIN()">\n\n        <ion-item>\n\n          <core-show-password item-content [name]="\'setpin\'">\n\n            <ion-input class="core-ioninput-password" name="setpin" type="password" placeholder="PIN"\n\n              formControlName="setpin" core-show-password [clearOnEdit]="false"></ion-input>\n\n          </core-show-password>\n\n        </ion-item>\n\n        <ion-item>\n\n          <core-show-password item-content [name]="\'confirmpin\'">\n\n            <ion-input class="core-ioninput-password" name="confirmpin" type="password"\n\n              placeholder="Confirm PIN" formControlName="confirmpin" core-show-password\n\n              [clearOnEdit]="false"></ion-input>\n\n          </core-show-password>\n\n        </ion-item>\n\n        <button ion-button block [disabled]="!credForm.valid">{{\'core.login.custom.setpin.btn\' | translate}}</button>\n\n      </form>\n\n    </div>\n\n  </core-loading>\n\n</ion-content>'/*ion-inline-end:"D:\FedCampusApp\src\core\login\pages\setpin\setpin.html"*/,
+            selector: 'page-setpin',template:/*ion-inline-start:"D:\FedCampusApp\src\core\login\pages\setpin\setpin.html"*/'<ion-header>\n\n  <ion-navbar core-back-button>\n\n    <ion-title>{{\'core.login.custom.setpin.navtitle\' | translate}}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="core-center-view">\n\n  <core-loading [hideUntil]="pageLoaded">      \n\n    <div class="box">\n\n        <h3 class="text-center"> {{\'core.login.custom.setpin.info\' | translate}} </h3>\n\n      <form ion-list [formGroup]="credForm" (ngSubmit)="SetPIN()">\n\n        <ion-item>\n\n          <core-show-password item-content [name]="\'setpin\'">\n\n            <ion-input class="core-ioninput-password" name="setpin" type="password" placeholder="PIN"\n\n             maxlength="6" formControlName="setpin" core-show-password [clearOnEdit]="false"></ion-input>\n\n          </core-show-password>\n\n        </ion-item>\n\n        <ion-item>\n\n          <core-show-password item-content [name]="\'confirmpin\'">\n\n            <ion-input class="core-ioninput-password" name="confirmpin" type="password"\n\n             maxlength="6" placeholder="Confirm PIN" formControlName="confirmpin" core-show-password\n\n              [clearOnEdit]="false"></ion-input>\n\n          </core-show-password>\n\n        </ion-item>\n\n        <button ion-button block [disabled]="!credForm.valid">{{\'core.login.custom.setpin.btn\' | translate}}</button>\n\n      </form>\n\n    </div>\n\n  </core-loading>\n\n</ion-content>'/*ion-inline-end:"D:\FedCampusApp\src\core\login\pages\setpin\setpin.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["w" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["t" /* NavController */], __WEBPACK_IMPORTED_MODULE_9__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_3__providers_app__["a" /* CoreAppProvider */],
             __WEBPACK_IMPORTED_MODULE_5__providers_sites__["a" /* CoreSitesProvider */], __WEBPACK_IMPORTED_MODULE_7__providers_helper__["a" /* CoreLoginHelperProvider */],

@@ -1,6 +1,6 @@
 webpackJsonp([35],{
 
-/***/ 1939:
+/***/ 1937:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OtploginPageModule", function() { return OtploginPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Otplogin__ = __webpack_require__(2074);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Otplogin__ = __webpack_require__(2072);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ngx_translate_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_components_module__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__directives_directives_module__ = __webpack_require__(14);
@@ -47,7 +47,7 @@ var OtploginPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 2074:
+/***/ 2072:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60,7 +60,7 @@ var OtploginPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_sites__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_utils_dom__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_utils_utils__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_helper__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_helper__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__core_contentlinks_providers_delegate__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__core_contentlinks_providers_helper__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_forms__ = __webpack_require__(24);
@@ -176,8 +176,9 @@ var OtploginPage = /** @class */ (function () {
         this.urlToOpen = navParams.get('urlToOpen');
         this.country = "+91";
         this.credForm = fb.group({
-            pfnumber: [navParams.get('pfnumber') || '', __WEBPACK_IMPORTED_MODULE_11__angular_forms__["h" /* Validators */].required],
-            phone_number: ['', __WEBPACK_IMPORTED_MODULE_11__angular_forms__["h" /* Validators */].required],
+            pfnumber: [navParams.get('pfnumber') || '', [__WEBPACK_IMPORTED_MODULE_11__angular_forms__["h" /* Validators */].required,
+                    __WEBPACK_IMPORTED_MODULE_11__angular_forms__["h" /* Validators */].minLength(1), __WEBPACK_IMPORTED_MODULE_11__angular_forms__["h" /* Validators */].maxLength(6), __WEBPACK_IMPORTED_MODULE_11__angular_forms__["h" /* Validators */].pattern('^[0-9]+$')]],
+            phone_number: ['', [__WEBPACK_IMPORTED_MODULE_11__angular_forms__["h" /* Validators */].required]],
             country: ['', __WEBPACK_IMPORTED_MODULE_11__angular_forms__["h" /* Validators */].required]
         });
     }
@@ -194,6 +195,19 @@ var OtploginPage = /** @class */ (function () {
         else {
             this.siteChecked = true;
             this.pageLoaded = true;
+        }
+    };
+    /**
+     * Tries to limit input character
+     *
+     * @param {Event} [e] Event.
+     */
+    OtploginPage.prototype.onKeyPressEvent = function (event) {
+        if ((this.credForm.value.pfnumber).length > 5) {
+            return false;
+        }
+        else {
+            return true;
         }
     };
     /**
@@ -308,7 +322,7 @@ var OtploginPage = /** @class */ (function () {
     OtploginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* IonicPage */])({ segment: 'page-otplogin' }),
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-otplogin',template:/*ion-inline-start:"D:\FedCampusApp\src\core\login\pages\otplogin\otplogin.html"*/'<ion-header>\n\n  <ion-navbar core-back-button>\n\n    <ion-title>{{\'core.login.custom.otplgoin.navtitle\' | translate}} </ion-title>\n\n\n\n    <ion-buttons end>\n\n      <button *ngIf="isFixedUrlSet" ion-button icon-only [navPush]="\'CoreSettingsListPage\'" [attr.aria-label]="\'core.mainmenu.appsettings\' | translate">\n\n        <ion-icon name="cog"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="core-center-view">\n\n  <core-loading [hideUntil]="pageLoaded">\n\n    <div class="box">\n\n      <div text-wrap text-center margin-bottom>\n\n        <!-- Show site logo or a default image. -->\n\n        <img *ngIf="logoUrl" [src]="logoUrl" role="presentation">\n\n        <img *ngIf="!logoUrl" src="assets/img/login_logo.png" class="login-logo" role="presentation">\n\n\n\n        <!-- If no sitename show big siteurl. -->\n\n        <!--<p *ngIf="!siteName" padding class="item-heading core-siteurl">{{siteUrl}}</p>-->\n\n        <!-- If sitename, show big sitename and small siteurl. -->\n\n        <!--<p *ngIf="siteName" padding class="item-heading core-sitename"><core-format-text [text]="siteName"></core-format-text></p>-->\n\n        <!--<p *ngIf="siteName" class="core-siteurl">{{siteUrl}}</p>-->\n\n      </div>\n\n      <form ion-list [formGroup]="credForm" (ngSubmit)="SendOTP($event)">\n\n        <ion-item *ngIf="siteChecked && !isBrowserSSO">\n\n          <ion-input type="text" name="pfnumber" placeholder="PF Number" formControlName="pfnumber"></ion-input>\n\n        </ion-item>\n\n        <ion-item text-wrap>\n\n          <ion-select item-start [(ngModel)]="country" name="country" formControlName="country" placeholder="Country Code">\n\n              <ion-option *ngFor="let c of countries" value="{{c.code}}">{{c.code}}</ion-option>\n\n          </ion-select>\n\n          <ion-input item-end name="phone_number" id="phone_number" type="number" pattern="[0-9]*" placeholder="Mobile Number" formControlName="phone_number" ></ion-input>\n\n        </ion-item>\n\n        <button ion-button block [disabled]="siteChecked && !isBrowserSSO && !credForm.valid">{{\'core.login.custom.otplogin.btn\' | translate}}</button>\n\n      </form>\n\n    </div>\n\n  </core-loading>\n\n</ion-content>'/*ion-inline-end:"D:\FedCampusApp\src\core\login\pages\otplogin\otplogin.html"*/,
+            selector: 'page-otplogin',template:/*ion-inline-start:"D:\FedCampusApp\src\core\login\pages\otplogin\otplogin.html"*/'<ion-header>\n\n  <ion-navbar core-back-button>\n\n    <ion-title>{{\'core.login.custom.otplgoin.navtitle\' | translate}} </ion-title>\n\n\n\n    <ion-buttons end>\n\n      <button *ngIf="isFixedUrlSet" ion-button icon-only [navPush]="\'CoreSettingsListPage\'" [attr.aria-label]="\'core.mainmenu.appsettings\' | translate">\n\n        <ion-icon name="cog"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content class="core-center-view">\n\n  <core-loading [hideUntil]="pageLoaded">\n\n    <div class="box">\n\n      <div text-wrap text-center margin-bottom>\n\n        <!-- Show site logo or a default image. -->\n\n        <img *ngIf="logoUrl" [src]="logoUrl" role="presentation">\n\n        <img *ngIf="!logoUrl" src="assets/img/login_logo.png" class="login-logo" role="presentation">\n\n\n\n        <!-- If no sitename show big siteurl. -->\n\n        <!--<p *ngIf="!siteName" padding class="item-heading core-siteurl">{{siteUrl}}</p>-->\n\n        <!-- If sitename, show big sitename and small siteurl. -->\n\n        <!--<p *ngIf="siteName" padding class="item-heading core-sitename"><core-format-text [text]="siteName"></core-format-text></p>-->\n\n        <!--<p *ngIf="siteName" class="core-siteurl">{{siteUrl}}</p>-->\n\n      </div>\n\n      <form ion-list [formGroup]="credForm" (ngSubmit)="SendOTP($event)">\n\n        <ion-item *ngIf="siteChecked && !isBrowserSSO">\n\n          <ion-input  name="pfnumber"  type="number" maxlength="6" placeholder="PF Number" formControlName="pfnumber" autocapitalize="none" autocorrect="off"></ion-input>\n\n          \n\n        </ion-item>\n\n        <ion-item text-wrap>\n\n          <ion-select item-start [(ngModel)]="country" name="country" formControlName="country" placeholder="Country Code">\n\n              <ion-option *ngFor="let c of countries" value="{{c.code}}">{{c.code}}</ion-option>\n\n          </ion-select>\n\n          <ion-input item-end name="phone_number" id="phone_number" type="number" placeholder="Mobile Number" formControlName="phone_number" ></ion-input>\n\n        </ion-item>\n\n        <button ion-button block [disabled]="siteChecked && !isBrowserSSO && !credForm.valid">{{\'core.login.custom.otplogin.btn\' | translate}}</button>\n\n      </form>\n\n    </div>\n\n  </core-loading>\n\n</ion-content>'/*ion-inline-end:"D:\FedCampusApp\src\core\login\pages\otplogin\otplogin.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["t" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["u" /* NavParams */], __WEBPACK_IMPORTED_MODULE_11__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_3__providers_app__["a" /* CoreAppProvider */],
             __WEBPACK_IMPORTED_MODULE_5__providers_sites__["a" /* CoreSitesProvider */], __WEBPACK_IMPORTED_MODULE_8__providers_helper__["a" /* CoreLoginHelperProvider */],
